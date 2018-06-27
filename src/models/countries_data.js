@@ -9,10 +9,9 @@ CountriesData.prototype.bindEvents = function () {
   this.getAllData();
 
   PubSub.subscribe('SelectView:change', (event) => {
-    console.log(event.detail);
 
     const countryName = event.detail;
-    this.publishCountryData(this.getCountryData(countryName));
+    this.publishCountryData(countryName);
   })
 };
 
@@ -24,17 +23,13 @@ CountriesData.prototype.getAllData = function () {
   });
 };
 
-CountriesData.prototype.getCountryData = function (countryName) {
+CountriesData.prototype.publishCountryData = function (countryName) {
   const url = `https://restcountries.eu/rest/v2/name/${countryName}`;
   request = new Request(url);
   request.get((countryData) => {
     console.log(countryData);
-    return countryData;
+    PubSub.publish('CountriesData:single-country-ready', countryData);
   });
-};
-
-CountriesData.prototype.publishCountryData = function (countryData) {
-  PubSub.publish('CountriesData:single-country-ready', countryData);
 };
 
 module.exports = CountriesData;

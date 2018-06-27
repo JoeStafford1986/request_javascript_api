@@ -6,12 +6,10 @@ const SelectView = function(element) {
 
 SelectView.prototype.bindEvents = function () {
   PubSub.subscribe('CountriesData:all-data-ready', (event) => {
-    console.log(event.detail);
     this.populate(event.detail);
 
     this.element.addEventListener('change', (event) => {
       const selectedCountryName = event.target.value;
-      console.log(selectedCountryName);
 
       PubSub.publish('SelectView:change', selectedCountryName);
     })
