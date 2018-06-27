@@ -27,7 +27,6 @@ CountriesData.prototype.publishCountryData = function (countryName) {
   const url = `https://restcountries.eu/rest/v2/name/${countryName}`;
   request = new Request(url);
   request.get((countryData) => {
-    console.log(countryData);
     PubSub.publish('CountriesData:single-country-ready', countryData);
   });
 };
