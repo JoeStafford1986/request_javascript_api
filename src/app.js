@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('JavaScript Loaded');
 
   const selectElement = document.querySelector('select#countries');
-  const countriesSelectView = new CountriesSelectView()
+  console.log(selectElement);
+  const countriesSelectView = new CountriesSelectView(selectElement);
   countriesSelectView.bindEvents();
 
   const countriesData = new CountriesData()
