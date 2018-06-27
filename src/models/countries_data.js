@@ -7,6 +7,10 @@ const CountriesData = function() {
 
 CountriesData.prototype.bindEvents = function () {
   this.getAllData();
+
+  PubSub.subscribe('SelectView:change', (event) => {
+    console.log(event.detail);
+  })
 };
 
 CountriesData.prototype.getAllData = function () {
