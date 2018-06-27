@@ -5,6 +5,10 @@ const CountriesData = function() {
 
 };
 
+CountriesData.prototype.bindEvents = function () {
+  this.getAllData();
+};
+
 CountriesData.prototype.getAllData = function () {
   const url = `https://restcountries.eu/rest/v2/all`;
   request = new Request(url);
@@ -12,3 +16,5 @@ CountriesData.prototype.getAllData = function () {
     PubSub.publish('CountriesData:all-data-ready', allCountriesData);
   });
 };
+
+module.exports = CountriesData;
