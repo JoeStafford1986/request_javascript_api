@@ -10,6 +10,9 @@ CountriesData.prototype.bindEvents = function () {
 
   PubSub.subscribe('SelectView:change', (event) => {
     console.log(event.detail);
+
+    const countryName = event.detail;
+    this.publishCountryData(this.getCountryData(countryName));
   })
 };
 
@@ -19,6 +22,19 @@ CountriesData.prototype.getAllData = function () {
   request.get((allCountriesData) => {
     PubSub.publish('CountriesData:all-data-ready', allCountriesData);
   });
+};
+
+CountriesData.prototype.getCountryData = function (countryName) {
+  const url = `https://restcountries.eu/rest/v2/name/${countryName}`;
+  request = new Request(url);
+  request.get((countryData) => {
+    console.log(countryData);
+    return countryData;
+  });
+};
+
+CountriesData.prototype.publishCountryData = function (countryData) {
+  PubSub.publish('CountriesData:single-country-ready', countryData);
 };
 
 module.exports = CountriesData;

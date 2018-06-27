@@ -10,19 +10,19 @@ SelectView.prototype.bindEvents = function () {
     this.populate(event.detail);
 
     this.element.addEventListener('change', (event) => {
-      const selectedIndex = event.target.value;
-      console.log(selectedIndex);
+      const selectedCountryName = event.target.value;
+      console.log(selectedCountryName);
 
-      PubSub.publish('SelectView:change', selectedIndex);
+      PubSub.publish('SelectView:change', selectedCountryName);
     })
   })
 };
 
 SelectView.prototype.populate = function (dataOptions) {
-  dataOptions.forEach((dataOption, index) => {
+  dataOptions.forEach((dataOption) => {
     const option = document.createElement('option');
     option.textContent = dataOption.name;
-    option.value = index;
+    option.value = dataOption.name;
     this.element.appendChild(option);
   });
 };
